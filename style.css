@@ -1,0 +1,23 @@
+#map {
+    width: 96%;
+    height: 80%;
+    /*!important used here to overide a style rule that set position to relitive and came from an unknown source*/
+    position: initial !important;
+    overflow: hidden;
+    display: block;
+}
+
+#options {
+    text-align: center;
+    width: auto;
+    height: auto;
+    position: absolute;
+    top: 85%;
+    display: block;
+    -webkit-border-radius: 1em;
+    -moz-border-radius: 1em;
+    border-radius: 1em;
+    background-color: red;
+    padding: 1em;
+
+}
