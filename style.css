@@ -16,12 +16,12 @@
     width: auto;
     height: auto;
     position: absolute;
-    top: 85%;
+    top: 80%;
     display: block;
     -webkit-border-radius: 1em;
     -moz-border-radius: 1em;
     border-radius: 1em;
-    background-color: #10d6a8;
+    background-color: rgba(16, 214, 168, 0.8);
     padding: 1em;
 
 }

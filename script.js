@@ -3,56 +3,36 @@ var mapOptions = {
     center: new google.maps.LatLng(-36.931331, 174.669777),
     zoom: 18
 };
-
 var map = new google.maps.Map(document.getElementById("map"),
     mapOptions);
-
-// Predefine all the paths
 var paths = [];
 
-paths['1_to_2'] = new google.maps.Polyline({
-    path: [
-        new google.maps.LatLng(47.656, -122.360),
-        new google.maps.LatLng(47.656, -122.343),
-        new google.maps.LatLng(47.690, -122.310)
-    ], strokeColor: '#FF0000'
-});
+var place = [
+    //lat, lang
+    //courts
+    [-36.929946, 174.670722],
+    //library
+    [-36.931473, 174.669062],
+    //gym
+    [-36.930766, 174.670630]
+];
 
-paths['1_to_3'] = new google.maps.Polyline({
-    path: [
-        new google.maps.LatLng(47.656, -122.360),
-        new google.maps.LatLng(47.656, -122.343),
-        new google.maps.LatLng(47.690, -122.270)
-    ], strokeColor: '#FF0000'
-});
+function go() {
+    navigator.geolocation.getCurrentPosition(drawDirections);
+}
 
-paths['2_to_3'] = new google.maps.Polyline({
-    path: [
-        new google.maps.LatLng(47.690, -122.310),
-        new google.maps.LatLng(47.690, -122.270)
-    ], strokeColor: '#FF0000'
-});
+function drawDirections(pos) {
+    var start = document.getElementById('start').selectedIndex;
+    var crd = pos.coords;
+    var picLat = place[start][0];
+    var picLng = place[start][1];
 
-function drawDirections() {
-    var start = 1 + document.getElementById('start').selectedIndex;
-    var end = 1 + document.getElementById('end').selectedIndex;
-    var i;
-
-    if (start === end) {
-        alert('Please choose different buildings');
-    }
-    else {
-        // Hide all polylines
-        for (i in paths) {
-            paths[i].setOptions({ map: null });
-        }
-
-        // Show the route
-        if (typeof paths['' + start + '_to_' + end] !== 'undefined') {
-            paths['' + start + '_to_' + end].setOptions({ map: map });
-        }
-        else if (typeof paths['' + end + '_to_' + start] !== 'undefined') {
-            paths['' + end + '_to_' + start].setOptions({ map: map });
-        }
-    }
+    paths['1_to_2'] = new google.maps.Polyline({
+        path: [
+            new google.maps.LatLng(crd.latitude, crd.longitude),
+            new google.maps.LatLng(picLat, picLng)
+        ], strokeColor: '#009aff'
+    });
+    // Show the route
+    paths['1_to_2'].setOptions({ map: map });
 }

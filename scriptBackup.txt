@@ -1,0 +1,64 @@
+navigator.geolocation.getCurrentPosition(success);
+
+var mapOptions = {
+    mapTypeId: 'satellite',
+    center: new google.maps.LatLng(-36.931331, 174.669777),
+    zoom: 18
+};
+
+var map = new google.maps.Map(document.getElementById("map"),
+    mapOptions);
+function success(pos) {
+    var crd = pos.coords;
+
+    paths['1_to_2'] = new google.maps.Polyline({
+        path: [
+            new google.maps.LatLng(crd.latitude, crd.longitude),
+            new google.maps.LatLng(-36.932296, 174.669472)
+        ], strokeColor: '#FF0000'
+    });
+
+};
+
+// Predefine all the paths
+var paths = [];
+
+ paths['1_to_2'] = new google.maps.Polyline({
+     path: [
+         new google.maps.LatLng(36.93138889, 174.66916667),
+         new google.maps.LatLng(-36.932296, 174.669472)
+     ], strokeColor: '#FF0000'
+ });
+
+paths['1_to_3'] = new google.maps.Polyline({
+    path: [
+        new google.maps.LatLng(-36.931251, 174.669099),
+        new google.maps.LatLng(-36.932296, 174.669472),
+        new google.maps.LatLng(-36.931431, 174.670514)
+    ], strokeColor: '#FF0000'
+});
+
+paths['2_to_3'] = new google.maps.Polyline({
+    path: [
+        new google.maps.LatLng(-36.932296, 174.669472),
+        new google.maps.LatLng(-36.931431, 174.670514)
+    ], strokeColor: '#FF0000'
+});
+
+function drawDirections() {
+    var start = 1 + document.getElementById('start').selectedIndex;
+    var end = 1 + document.getElementById('end').selectedIndex;
+    var i;
+
+    if (start === end) {
+        alert('Please choose different buildings');
+    }
+    else {
+        // Hide all polylines
+        for (i in paths) {
+            paths[i].setOptions({ map: null });
+        }
+        // Show the route
+            paths['' + start + '_to_' + end].setOptions({ map: map });
+    }
+}
